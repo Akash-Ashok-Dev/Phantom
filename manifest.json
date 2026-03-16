@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "PHANTOM",
+  "version": "1.0.0",
+  "description": "Explain any code in your browser. No server. No API key.",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "offscreen",
+    "sidePanel"
+  ],
+  "side_panel": {
+    "default_path": "src/popup/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.tsx"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "src/assets/icons/icon-16.jpeg",
+      "48": "src/assets/icons/icon-48.jpeg",
+      "128": "src/assets/icons/icon-128.jpeg"
+    }
+  }
+}
