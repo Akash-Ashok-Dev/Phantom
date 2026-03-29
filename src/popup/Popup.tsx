@@ -12,33 +12,6 @@ export default function Popup() {
   const [thinking, setThinking] = useState(false);
   const engineRef = useRef<ServiceWorkerMLCEngine | null>(null);
 
-  useEffect(() => {
-    async function loadEngine() {
-      engineRef.current = await CreateServiceWorkerMLCEngine(
-        "Llama-3.2-3B-Instruct-q4f32_1-MLC",
-        {
-          initProgressCallback: (p) => {
-            setProgress(Math.round(p.progress * 100));
-          },
-        },
-      );
-      setReady(true);
-      chrome.runtime.sendMessage({ type: "MODEL_READY" }).catch(() => {});
-    }
-    loadEngine();
-
-    const listener = (message: any) => {
-      if (message.type === "EXPLAIN_NOW") {
-        setCode(message.code);
-        setExplanation("");
-        // Auto trigger explain
-        handleExplainWithCode(message.code);
-      }
-    };
-    chrome.runtime.onMessage.addListener(listener);
-    return () => chrome.runtime.onMessage.removeListener(listener);
-  }, []);
-
   const handleExplainWithCode = async (selectedCode: string) => {
     if (!selectedCode.trim() || !engineRef.current) return;
     setThinking(true);
@@ -62,12 +35,44 @@ export default function Popup() {
       setExplanation(
         response.choices[0].message.content ?? "No explanation returned.",
       );
-    } catch (err: any) {
-      setExplanation(`Error: ${err.message}`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setExplanation(`Error: ${message}`);
     }
 
     setThinking(false);
   };
+
+  useEffect(() => {
+    async function loadEngine() {
+      engineRef.current = await CreateServiceWorkerMLCEngine(
+        "Qwen2-1.5B-Instruct-q4f16_1-MLC",
+        {
+          initProgressCallback: (p) => {
+            setProgress(Math.round(p.progress * 100));
+          },
+        },
+      );
+      setReady(true);
+      chrome.runtime.sendMessage({ type: "MODEL_READY" }).catch(() => {});
+    }
+    loadEngine();
+
+    const listener = (message: unknown) => {
+      const explainMessage = message as { type?: string; code?: string };
+      if (
+        explainMessage.type === "EXPLAIN_NOW" &&
+        typeof explainMessage.code === "string"
+      ) {
+        setCode(explainMessage.code);
+        setExplanation("");
+        // Auto trigger explain
+        void handleExplainWithCode(explainMessage.code);
+      }
+    };
+    chrome.runtime.onMessage.addListener(listener);
+    return () => chrome.runtime.onMessage.removeListener(listener);
+  }, []);
 
   const handleExplain = async () => {
     await handleExplainWithCode(code);
