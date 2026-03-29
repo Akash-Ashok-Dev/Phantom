@@ -1,73 +1,158 @@
-# React + TypeScript + Vite
+# 🚀 PHANTOM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Local AI Coding Assistant — Runs locally in Your Browser
+---
 
-Currently, two official plugins are available:
+ 1. Project Name
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**PHANTOM**
 
-## React Compiler
+> A privacy-first, offline AI coding assistant that runs entirely in the browser.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 2. Problem Statement
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Modern AI coding tools (like Copilot, ChatGPT, etc.) depend heavily on cloud infrastructure. This creates three major issues:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* 🔐 **Privacy Risks** – Source code is sent to external servers
+* 🌐 **Internet Dependency** – No connection = no AI
+* 💸 **Cost & Rate Limits** – API usage is expensive and restricted
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+For enterprises, students, and developers working with sensitive code, this is a serious limitation.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 3. Solution
+
+**PHANTOM** solves this by bringing the AI directly to the user.
+
+* Runs a **code-specialized language model inside the browser**
+* Uses **WebAssembly + WebGPU** for near-native performance
+* Requires **no backend, no API key, no internet (after initial load)**
+
+> The AI comes to your code — not the other way around.
+
+---
+
+## 4. Features
+
+✨ **Fully Local AI**
+
+* Runs entirely in-browser
+* No data leaves your machine
+
+⚡ **Real-time Code Assistance** *(Prototype)*
+
+* Code suggestions
+* Code explanation
+* Debugging help
+
+🔄 **Streaming Responses**
+
+* Token-by-token output for smooth UX
+
+🧠 **Web Worker-based Execution**
+
+* Prevents UI freezing
+* Enables background inference
+
+💾 **Model Caching (IndexedDB)**
+
+* Load once, reuse instantly
+
+🔌 **SDK-Ready Architecture (Planned)**
+
+* Can be embedded into any web app
+
+---
+
+## 5. Tech Stack
+
+**Frontend**
+
+* React
+* TypeScript
+* Vite
+
+**AI / Runtime**
+
+* WebLLM
+* MLC-LLM
+* WebAssembly (WASM)
+* WebGPU
+
+**Browser APIs**
+
+* Web Workers
+* IndexedDB
+
+---
+
+## 6. How to Run
+
+```bash
+# Clone the repository
+git clone https://github.com/Akash-Ashok-Dev/Phantom.git
+
+# Navigate into project
+cd Phantom
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 7. Screenshots
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+/screenshots/interface.jpeg  
+/screenshots/example1.jpeg  
+/screenshots/example2.jpeg
+
+---
+
+
+## 🧪 Project Status
+
+⚠️ **Prototype**
+
+PHANTOM is currently in an early prototype stage demonstrating:
+
+* In-browser LLM inference
+* Local AI interaction flow
+* Core architecture feasibility
+
+Future work includes:
+
+* Better model optimization
+* Faster inference
+* Full SDK release
+* Advanced code intelligence features
+
+---
+
+## 💡 Vision
+
+PHANTOM aims to become:
+
+> **The AI runtime for the browser**
+
+Enabling developers to build AI-powered applications with:
+
+* Zero backend
+* Zero API costs
+* Complete privacy
+
+---
+
+## 🔥 Why PHANTOM Matters
+
+* Own your AI
+* Keep your code private
+* Work without limits
+
+
