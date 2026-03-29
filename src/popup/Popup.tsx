@@ -70,32 +70,7 @@ export default function Popup() {
   };
 
   const handleExplain = async () => {
-    handleExplainWithCode(code);
-    if (!code.trim() || !engineRef.current) return;
-    setThinking(true);
-    setExplanation("");
-    try {
-      const response = await engineRef.current.chat.completions.create({
-        messages: [
-          {
-            role: "system",
-            content:
-              "You explain code clearly and concisely in plain English. No fluff. No markdown.",
-          },
-          {
-            role: "user",
-            content: `Explain this code:\n\n${code}`,
-          },
-        ],
-        stream: false,
-      });
-      setExplanation(
-        response.choices[0].message.content ?? "No explanation returned.",
-      );
-    } catch (err: any) {
-      setExplanation(`Error: ${err.message}`);
-    }
-    setThinking(false);
+    await handleExplainWithCode(code);
   };
 
   return (
